@@ -6,21 +6,47 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OnlineStore.Models;
+using OnlineStore.Models.ViewModels;
 
 namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private IStoreRepository repository;
+        public int PageSize = 4;
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public HomeController (IStoreRepository repo)
         {
-            _logger = logger;
+            repository = repo;
+            //_logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string category, int productPage = 1)
         {
-            return View();
+            return View(new ProductListViewModel
+            {
+                Products = repository.Products
+                .Where(p => category == null || p.Category == category)
+                .OrderBy(p => p.ProductID)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ?
+                        repository.Products.Count() :
+                        repository.Products.Where(e =>
+                            e.Category == category).Count()
+                },
+                CurrentCategory = category
+            }); 
         }
 
         public IActionResult Privacy()
