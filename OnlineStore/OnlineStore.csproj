@@ -28,5 +28,6 @@
     <Folder Include="Pages\" />
     <Folder Include="Views\Shared\Components\CartSummary\" />
     <Folder Include="Views\Order\" />
+    <Folder Include="Pages\Admin\" />
   </ItemGroup>
 </Project>
