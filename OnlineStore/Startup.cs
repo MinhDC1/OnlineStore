@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineStore
 {
@@ -40,11 +41,20 @@ namespace OnlineStore
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddServerSideBlazor();
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+           {
+               options.UseSqlite(Configuration.GetConnectionString("IdentityConnection"));
+           });
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /*
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,12 +65,26 @@ namespace OnlineStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            */
+
+            if (env.IsProduction())
+            {
+                app.UseExceptionHandler("/error");
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -87,6 +111,7 @@ namespace OnlineStore
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
