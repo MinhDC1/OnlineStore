@@ -37,6 +37,7 @@ namespace OnlineStore.Pages
             Cart.AddItem(product, 1);
             //HttpContext.Session.SetJson("cart", Cart);
             return RedirectToPage(new { returnUrl = returnUrl });
+            
         }
 
         public IActionResult OnPostRemove(long productId, string returnUrl)

@@ -17,6 +17,7 @@ namespace OnlineStore.Models
         [Range(0.01, double.MaxValue,
             ErrorMessage = "Please enter a positive price")]
         [Column(TypeName = "decimal(8, 2)")]
+        [DisplayFormat(DataFormatString="{0:C}")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "PLease specify a category")]
