@@ -2,14 +2,16 @@
 @page "/admin"
 @inherits OwningComponentBase<IStoreRepository>
 
+
 <table class="table table-sm table-striped table-bordered">
-    <thread>
-        <tr>
-            <th>ID</th><th>Name</th>
-            <th>Category</th><th>Price</th><td/>
-        </tr>
-    </thread>
     <tbody>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
         @if (ProductData?.Count() > 0)
         {
             @foreach (Product p in ProductData)
@@ -36,13 +38,15 @@
                 </tr>
             }
         }
-        else {
+        else
+        {
             <tr>
                 <td colspan="5" class="test-center">No Products</td>
             </tr>
         }
     </tbody>
 </table>
+
 
 <NavLink class="btn btn-primary" href="/admin/products/create">Create</NavLink>
 
