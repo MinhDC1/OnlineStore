@@ -14,6 +14,7 @@ II - Administration onlinestore web application
 - Create , read, update and delete (CRUD) facilities for managing the catalog
 
 Overall Application Architecture:
+- Compliance with new Principal Architectural Design of Web Modern Application ASP.Net.
 - Developed based on ASP.Net Core MVC framwork and integrated with two seperpated frameworks:
     - EntityFrameworkCore
     - ASP.Net Core Identity Framework
