@@ -1,7 +1,7 @@
 # OnlineStore
-OnlineStore project based on ASP.Net Core 3.1 - ComIT.Net course.
+OnlineStore project based on ASP.Net Core 3.1
 
-This is a simple onlinestore web application include two small projects:
+This is a simple onlinestore web application include two small projects and is built base on ASP.Net Core and compliance with new Principal Architectural Design of Web Modern Application ASP.Net.
 
 I - Retail onlinestore web application for display products and selling to customers. Overall business application specification:
 - Create an online product catalog that customers can browse by category and page
@@ -11,13 +11,26 @@ I - Retail onlinestore web application for display products and selling to custo
 
 II - Administration onlinestore web application
 - Login management 
-- Create , read, update and delete (CRUD) facilities for managing the catalog
+- Create , read, update and delete (CRUD) facilities for managing the product catalog and for managing shipping orders.
 
-Overall Application Architecture:
-- Compliance with new Principal Architectural Design of Web Modern Application ASP.Net.
-- Developed based on ASP.Net Core MVC framwork and integrated with two seperpated frameworks:
-    - EntityFrameworkCore
-    - ASP.Net Core Identity Framework
-- Used Balazor Server for Administration OnlineStore App
-- Architecture of this onlinestore application designed for maintable, extensible, well-structure code with excellent support for unit testing (Xunit unit testing framwork) by applying TDD process.
-- Database is uing for this web application: Sqlite database.
+
+Top Level Design:
+
+This application will serve a responsive graphical user interface through modern web browsers.The application contains two Web projects, one based on the MPA multi-page application created by MVC, and one based on the Spa single page app created by Razor.
+
+Data of this web application is organized to store in SQLite version, but it can be migrated to apply on any database type such as: SQLServer, NoSQL DB, etc... The Data is stored into following tables including:
+
+•	Order table contains user order item information and contains shipping address information.
+•	Product table contains the products information and products category
+•	CartLine table contains the shopping cart product information
+
+The application will be structured base on Clean Architectural Design in three-layer correspondence:
+1.	Applicationcore: Domain Layer
+This is a core of application and is used to define and implement business rules. It is mainly use for entities, value objects, aggregation, warehousing, Domain Services and domain events.
+
+2.	Infrastructure: Infrastructure Layer
+Primarily provides common basic services and persistence such as database storage, logging activities, services email sending.
+
+3.	Web/webrazorpages: Presentation Layer
+Presentation layer is responsible for the coordination between the layer and domain layer, and coordinates the business logic to execute the specific application.
+
