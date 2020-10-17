@@ -27,7 +27,7 @@ namespace OnlineStore.Infrastructure
 
         public string PageAction { get; set; }
 
-        [HtmlAttributeName(DictionaryAttributePrefix = "page-url_")]
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
         public Dictionary<string, object> PageURLValues { get; set; }
          = new Dictionary<string, object>();
 
